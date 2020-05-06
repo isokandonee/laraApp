@@ -12,10 +12,10 @@ $fa-font-path: "../webfonts";
 @import '~admin-lte/dist/css/adminlte.css';
 
 // Fort-awesome
-@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "~@fortawesome/fontawesome-free/scss/solid.scss";
-@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
 
 
 // Font Awesome 
-@import "node_modules/font-awesome/scss/font-awesome";
+// @import "node_modules/font-awesome/scss/font-awesome";
