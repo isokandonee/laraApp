@@ -1916,10 +1916,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Calculator.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Calculator.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Calculator.vue?vue&type=script&scoped=true&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Calculator.vue?vue&type=script&scoped=true&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1950,7 +1950,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      current: ''
+    };
+  },
+  methods: {
+    clear: function clear() {
+      this.current = '';
+    },
+    sign: function sign() {
+      this.current = this.current.charAt(0) === '-' ? this.current.slice(1) : "-".concat(this.current);
+    },
+    percent: function percent() {
+      this.current = "".concat(parseFloat(this.current) / 100);
+    },
+    append: function append(number) {
+      this.current = "".concat(this.current).concat(number);
+    }
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -6600,7 +6630,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.calculator[data-v-625bc6ad] {\n    font-size: 40px;\n    display:grid;\n    grid-template-columns: repeat(4, 1fr);\n    grid-auto-rows: mimax(50px, auto);\n}\n.display[data-v-625bc6ad]{\n    grid-column: 1 / 5;\n}\n.zero[data-v-625bc6ad]{\n    grid-column: 1 / 3;\n}\n.btn[data-v-625bc6ad]{\n    font-size: 30px;\n    background-color: #eee;\n    border: 1px solid #333;\n}\n.operator[data-v-625bc6ad]{\n    background-color: orange;\n}\n", ""]);
+exports.push([module.i, "\n.calculator[data-v-625bc6ad] {\n    font-size: 40px;\n    display:grid;\n    grid-template-columns: repeat(4, 1fr);\n    grid-auto-rows: mimax(50px, auto);\n    border: 1px solid #333;\n}\n.display[data-v-625bc6ad]{\n    grid-column: 1 / 5;\n    border: 1px solid #333;\n    text-align: center;\n}\n.zero[data-v-625bc6ad]{\n    grid-column: 1 / 3;\n    border: 1px solid #333;\n    text-align: center;\n}\n.btn[data-v-625bc6ad]{\n    font-size: 30px;\n    background-color: #eee;\n    border: 1px solid #333;\n}\n.operator[data-v-625bc6ad]{\n    text-align: center;\n    font-size: 30px;\n    background-color: orange;\n    border: 1px solid #333;\n}\n", ""]);
 
 // exports
 
@@ -38346,53 +38376,183 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "col-md-8" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "calculator" }, [
+          _c("div", { staticClass: "display" }, [
+            _vm._v(_vm._s(_vm.current || "0"))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "btn", on: { click: _vm.clear } }, [
+            _vm._v("C")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "btn", on: { click: _vm.sign } }, [
+            _vm._v("+/-")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "btn", on: { click: _vm.percent } }, [
+            _vm._v("%")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "operator" }, [_vm._v("/")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  return _vm.append("7")
+                }
+              }
+            },
+            [_vm._v("7")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  return _vm.append("8")
+                }
+              }
+            },
+            [_vm._v("8")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  return _vm.append("9")
+                }
+              }
+            },
+            [_vm._v("9")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "operator" }, [_vm._v("x")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  return _vm.append("4")
+                }
+              }
+            },
+            [_vm._v("4")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  return _vm.append("5")
+                }
+              }
+            },
+            [_vm._v("5")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  return _vm.append("6")
+                }
+              }
+            },
+            [_vm._v("6")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "operator" }, [_vm._v("-")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  return _vm.append("1")
+                }
+              }
+            },
+            [_vm._v("1")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  return _vm.append("2")
+                }
+              }
+            },
+            [_vm._v("2")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btn",
+              on: {
+                click: function($event) {
+                  return _vm.append("3")
+                }
+              }
+            },
+            [_vm._v("3")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "operator" }, [_vm._v("+")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "zero",
+              on: {
+                click: function($event) {
+                  return _vm.append("0")
+                }
+              }
+            },
+            [_vm._v("0")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "btn" }, [_vm._v(".")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "operator" }, [_vm._v("=")])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "calculator" }, [
-      _c("div", { staticClass: "display" }, [_vm._v("0.012345")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("C")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("+/-")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("%")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("/")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("7")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("8")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("9")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("x")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("4")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("5")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("6")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("-")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("1")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("2")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("3")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("+")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "zero" }, [_vm._v("0")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v(".")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [_vm._v("=")])
+    return _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header text-center fa-2x" }, [
+        _vm._v("Calculator")
+      ])
     ])
   }
 ]
@@ -53750,7 +53910,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Calculator_vue_vue_type_template_id_625bc6ad_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Calculator.vue?vue&type=template&id=625bc6ad&scoped=true& */ "./resources/js/components/Calculator.vue?vue&type=template&id=625bc6ad&scoped=true&");
-/* harmony import */ var _Calculator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Calculator.vue?vue&type=script&lang=js& */ "./resources/js/components/Calculator.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Calculator_vue_vue_type_script_scoped_true_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Calculator.vue?vue&type=script&scoped=true&lang=js& */ "./resources/js/components/Calculator.vue?vue&type=script&scoped=true&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _Calculator_vue_vue_type_style_index_0_id_625bc6ad_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Calculator.vue?vue&type=style&index=0&id=625bc6ad&scoped=true&lang=css& */ "./resources/js/components/Calculator.vue?vue&type=style&index=0&id=625bc6ad&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -53762,7 +53922,7 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _Calculator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Calculator_vue_vue_type_script_scoped_true_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Calculator_vue_vue_type_template_id_625bc6ad_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Calculator_vue_vue_type_template_id_625bc6ad_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -53779,17 +53939,17 @@ component.options.__file = "resources/js/components/Calculator.vue"
 
 /***/ }),
 
-/***/ "./resources/js/components/Calculator.vue?vue&type=script&lang=js&":
-/*!*************************************************************************!*\
-  !*** ./resources/js/components/Calculator.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************/
+/***/ "./resources/js/components/Calculator.vue?vue&type=script&scoped=true&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/Calculator.vue?vue&type=script&scoped=true&lang=js& ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Calculator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Calculator.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Calculator.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Calculator_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Calculator_vue_vue_type_script_scoped_true_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Calculator.vue?vue&type=script&scoped=true&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Calculator.vue?vue&type=script&scoped=true&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Calculator_vue_vue_type_script_scoped_true_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
