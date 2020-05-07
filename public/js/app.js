@@ -1979,6 +1979,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     append: function append(number) {
       this.current = "".concat(this.current).concat(number);
+    },
+    dot: function dot() {
+      if (this.current.indexOf('.') === -1) {
+        this.append('.');
+      }
     }
   },
   mounted: function mounted() {
@@ -38536,7 +38541,9 @@ var render = function() {
             [_vm._v("0")]
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "btn" }, [_vm._v(".")]),
+          _c("div", { staticClass: "btn", on: { click: _vm.dot } }, [
+            _vm._v(".")
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "operator" }, [_vm._v("=")])
         ])
