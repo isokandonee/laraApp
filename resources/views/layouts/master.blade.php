@@ -70,12 +70,12 @@
                with font-awesome or any other icon font library -->
           
           <li class="nav-item">
-            <router-link to="/dashboard" class="nav-link active">
+            <router-link to="/dashboard" class="nav-link">
               <i class="fas fa-tachometer-alt nav-icon"></i>
               <p>Dashboard</p>
             </router-link>
           </li>
-          <li class="nav-item has-treeview menu-closed">
+          <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
@@ -86,8 +86,20 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <router-link to="/calculator" class="nav-link">
-                  <i class=" nav-icon fas fa-cog"></i>
+                  <i class=" nav-icon fas fa-calcuator"></i>
                   <p>Calculator</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/calculator" class="nav-link">
+                  <i class=" nav-icon fas fa-calcltor"></i>
+                  <p>Active Page</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/calculator" class="nav-link">
+                  <i class=" nav-icon fas fa-calclator"></i>
+                  <p>Inactive Page</p>
                 </router-link>
               </li>
             </ul>
@@ -99,12 +111,15 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-power-off"></i>
-              <p>
-                Log Out
-              </p>
+            <a class="nav-link" href="{{ route('logout') }}"
+                          onclick="event.preventDefault();
+                                  document.getElementById('logout-form').submit();">
+                <i class="nav-icon fas fa-power-off"></i>
+                <p> {{ __('Log Out') }} </p>
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
           </li>
           
           {{-- <li class="nav-item has-treeview">

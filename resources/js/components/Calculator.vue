@@ -79,6 +79,8 @@
     }
 
     .display{
+        background-color: black;
+        color: white;
         grid-column: 1 / 5;
         border: 1px solid #333;
         text-align: center;

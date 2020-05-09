@@ -6635,7 +6635,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.calculator[data-v-625bc6ad] {\n    font-size: 40px;\n    display:grid;\n    grid-template-columns: repeat(4, 1fr);\n    grid-auto-rows: mimax(50px, auto);\n    border: 1px solid #333;\n}\n.display[data-v-625bc6ad]{\n    grid-column: 1 / 5;\n    border: 1px solid #333;\n    text-align: center;\n}\n.zero[data-v-625bc6ad]{\n    grid-column: 1 / 3;\n    border: 1px solid #333;\n    text-align: center;\n}\n.btn[data-v-625bc6ad]{\n    font-size: 30px;\n    background-color: #eee;\n    border: 1px solid #333;\n}\n.operator[data-v-625bc6ad]{\n    text-align: center;\n    font-size: 30px;\n    background-color: orange;\n    border: 1px solid #333;\n}\n", ""]);
+exports.push([module.i, "\n.calculator[data-v-625bc6ad] {\n    font-size: 40px;\n    display:grid;\n    grid-template-columns: repeat(4, 1fr);\n    grid-auto-rows: mimax(50px, auto);\n    border: 1px solid #333;\n}\n.display[data-v-625bc6ad]{\n    background-color: black;\n    color: white;\n    grid-column: 1 / 5;\n    border: 1px solid #333;\n    text-align: center;\n}\n.zero[data-v-625bc6ad]{\n    grid-column: 1 / 3;\n    border: 1px solid #333;\n    text-align: center;\n}\n.btn[data-v-625bc6ad]{\n    font-size: 30px;\n    background-color: #eee;\n    border: 1px solid #333;\n}\n.operator[data-v-625bc6ad]{\n    text-align: center;\n    font-size: 30px;\n    background-color: orange;\n    border: 1px solid #333;\n}\n", ""]);
 
 // exports
 
@@ -53834,6 +53834,7 @@ var routes = [{
   component: __webpack_require__(/*! ./components/Calculator.vue */ "./resources/js/components/Calculator.vue")["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  // mode: 'history',
   routes: routes
 });
 /**
