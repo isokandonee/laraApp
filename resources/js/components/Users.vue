@@ -102,7 +102,7 @@
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Create</button>
+                          <button type="submit" class="btn btn-primary">Create</button>
                       </div>
                     </form>
                 </div>
@@ -128,7 +128,7 @@
       },
       methods: {
         createUser() {
-          
+          this.form.post('api/user'); 
         }
       },
         mounted() {
