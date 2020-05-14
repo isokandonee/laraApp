@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
+    /*
      * Display a listing of the resource.
      *
      * @ return \Illuminate\Http\Response
@@ -19,7 +19,7 @@ class UserController extends Controller
         //
     }
 
-    /**
+    /*
      * Store a newly created resource in storage.
      *
      * @ param  \Illuminate\Http\Request  $request
@@ -28,25 +28,25 @@ class UserController extends Controller
     public function store(Request $request)
     {
         return User::create([
-            'name' -> $request['name'],
-            'email' -> $request['email'],
-            'type' -> $request['type'],
-            'bio' -> $request['bio'],
-            'photo' -> $request['photo'],
-            'password' -> Hash::make($request['password'])
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'type' => $request['type'],
+            'bio' => $request['bio'],
+            'photo' => $request['photo'],
+            'password' => Hash::make($request['password']),
         ]);
-    },
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @par am  i nt  $id
+     * @ret urn \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
-    },
+    }
 
     /**
      * Update the specified resource in storage.
@@ -58,7 +58,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-    },
+    }
 
     /**
      * Remove the specified resource from storage.
