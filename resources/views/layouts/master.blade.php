@@ -4,13 +4,18 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>laraApp | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  
+
+  {{-- favicon --}}
+  {{-- <link rel="icon" href="{{ URL::asset('favicon.ico') }}" type="image/x-icon"/> --}}
+  <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/css/app.css">
 
@@ -46,9 +51,9 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="./img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="./img/android-chrome-512x512.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">laraApp</span>
     </a>
 
     <!-- Sidebar -->
