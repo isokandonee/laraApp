@@ -33,15 +33,15 @@ class UserController extends Controller
             'type' => $request['type'],
             'bio' => $request['bio'],
             'photo' => $request['photo'],
-            'password' => Hash::make($request['password']),
+            'password' => Hash::make($request['password'])
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @par am  i nt  $id
-     * @ret urn \Illuminate\Http\Response
+     * @ param  int  $id
+     * @ return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -51,9 +51,9 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @ param  \Illuminate\Http\Request  $request
+     * @ param  int  $id
+     * @ return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -63,8 +63,8 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @ param  int  $id
+     * @ return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
