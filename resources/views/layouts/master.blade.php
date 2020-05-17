@@ -168,6 +168,9 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       <router-view></router-view>
+
+      {{-- vue progress bar --}}
+      <vue-progress-bar></vue-progress-bar>
     </div>  
   </div>
   <!-- /.content-wrapper -->

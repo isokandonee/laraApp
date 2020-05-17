@@ -133,15 +133,28 @@
         loadUsers() {
           axios.get('api/user').then(({ data }) => (this.users = data.data));
         },
+
         createUser() {
-          this.form.post('api/user'); 
+          this.$Progress.start();
+          this.form.post('api/user');
+          this.$Progress.finish();
+          $('#addNew').modal('hide');
+          
+          Toast.fire({
+            icon: 'success',
+            title: 'User Created Successfully'
+          });
+
         },
+
       },
       created() {
         this.loadUsers();
       },
         mounted() {
-            console.log('Component mounted.')
+            console.log('Component mounted.');
+            this.$Progress.start();
+            this.$Progress.finish();
         }
     }
 </script>
