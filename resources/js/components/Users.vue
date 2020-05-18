@@ -136,16 +136,22 @@
 
         createUser() {
           this.$Progress.start();
-          this.form.post('api/user');
-          this.$Progress.finish();
+          this.form.post('api/user')
+          .then(()=>{
+            this.$Progress.finish();
 
-          AddEvent.$emit('AfterCreate');
+            AddEvent.$emit('AfterCreate');
 
-          $('#addNew').modal('hide');
-          
-          Toast.fire({
-            icon: 'success',
-            title: 'User Created Successfully'
+            $('#addNew').modal('hide');
+            
+            Toast.fire({
+              icon: 'success',
+              title: 'User Created Successfully'
+            });
+
+          });
+          .ccatch(()=>{
+
           });
 
         },
