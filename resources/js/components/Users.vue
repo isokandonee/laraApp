@@ -138,6 +138,9 @@
           this.$Progress.start();
           this.form.post('api/user');
           this.$Progress.finish();
+
+          AddEvent.$emit('AfterCreate');
+
           $('#addNew').modal('hide');
           
           Toast.fire({
@@ -148,9 +151,15 @@
         },
 
       },
+
       created() {
         this.loadUsers();
+        AddEvent.$on('AfterCreate', () => {
+          this.loadUsers();
+        });
+        // setInterval( () => this.loadUsers(),10000);
       },
+
         mounted() {
             console.log('Component mounted.');
             this.$Progress.start();
