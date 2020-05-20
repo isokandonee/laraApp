@@ -31,7 +31,7 @@ class UserController extends Controller
         $this->validate($request,[
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8'
         ]);
 
         // Create user account
@@ -69,10 +69,10 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         // Validate details
-        $this->validate($request[
+        $this->validate($request,[
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8'
         ]);
 
         // Update user account
