@@ -27,11 +27,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate details
         $this->validate($request,[
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
             'password' => 'required|string|min:8',
         ]);
+
+        // Create user account
         return User::create([
             'name' => $request['name'],
             'email' => $request['email'],
@@ -61,8 +64,27 @@ class UserController extends Controller
      * @ return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {        
+        // Find the user with id
+        $user = User::findOrFail($id);
+
+        // Validate details
+        $this->validate($request[
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:users',
+            'password' => 'required|string|min:8',
+        ]);
+
+        // Update user account
+        
+        return User.id::update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'type' => $request['type'],
+            'bio' => $request['bio'],
+            'photo' => $request['photo'],
+            'password' => Hash::make($request['password']),
+        ]);
     }
 
     /**
@@ -73,6 +95,16 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Find the user with id
+        $user = User::findOrFail($id);
+
+        // Delete the user
+
+
+        // Message
+        return [
+            'message' => 'User deleted',
+            'icon' => 'success',
+        ];
     }
 }
