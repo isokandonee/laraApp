@@ -71,20 +71,15 @@ class UserController extends Controller
         // Validate details
         $this->validate($request,[
             'name' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users',
-            'password' => 'required|string|min:8'
+            'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
+            'password' => 'sometimes|min:8'
         ]);
 
         // Update user account
-        
-        return User.id::update([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'type' => $request['type'],
-            'bio' => $request['bio'],
-            'photo' => $request['photo'],
-            'password' => Hash::make($request['password']),
-        ]);
+        $user->update($request->all());
+
+        // Message
+        return ['message' => 'Updated the user info'];
     }
 
     /**
@@ -99,7 +94,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         // Delete the user
-
+        $user->delete();
 
         // Message
         return [

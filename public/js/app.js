@@ -2219,67 +2219,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      editmode: false,
       users: {},
       form: new Form({
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -2290,8 +2236,37 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    updateUser: function updateUser(id) {},
+    newModal: function newModal() {
+      this.editmode = false;
+      this.form.reset();
+      $('#addNew').modal('show');
+    },
+    editModal: function editModal(user) {
+      this.editmode = true;
+      this.form.reset();
+      $('#addNew').modal('show');
+      this.form.fill(user);
+    },
+    updateUser: function updateUser() {
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.put('api/user/' + this.form.id).then(function () {
+        _this.$Progress.finish();
+
+        AddEvent.$emit('AfterUpdate');
+        $('#addNew').modal('hide');
+        Swal.fire('Updated!', 'Account Was Updated Successful', 'success');
+      })["catch"](function () {
+        _this.$Progress.fail();
+
+        $('#addNew').modal('hide');
+        Swal.fire('Not Updated!', 'Account Update Was Not Successful', 'error');
+      });
+    },
     deleteUser: function deleteUser(id) {
+      var _this2 = this;
+
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this",
@@ -2303,24 +2278,29 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          Swal.fire('Deleted!', 'Your file has been deleted', 'success');
+          _this2.form["delete"]('api/user/' + id).then(function () {
+            Swal.fire('Deleted!', 'Your file has been deleted', 'success');
+            AddEvent.$emit('AfterDelete');
+          })["catch"](function () {
+            Swal.fire('Failed!', 'Please try again.', 'warning');
+          });
         }
       });
     },
     loadUsers: function loadUsers() {
-      var _this = this;
+      var _this3 = this;
 
       axios.get('api/user').then(function (_ref) {
         var data = _ref.data;
-        return _this.users = data.data;
+        return _this3.users = data.data;
       });
     },
     createUser: function createUser() {
-      var _this2 = this;
+      var _this4 = this;
 
       this.$Progress.start();
       this.form.post('api/user').then(function () {
-        _this2.$Progress.finish();
+        _this4.$Progress.finish();
 
         AddEvent.$emit('AfterCreate');
         $('#addNew').modal('hide');
@@ -2329,16 +2309,22 @@ __webpack_require__.r(__webpack_exports__);
           title: 'User Created Successfully'
         });
       })["catch"](function () {
-        _this2.$Progress.fail();
+        _this4.$Progress.fail();
       });
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this5 = this;
 
     this.loadUsers();
     AddEvent.$on('AfterCreate', function () {
-      _this3.loadUsers();
+      _this5.loadUsers();
+    });
+    AddEvent.$on('AfterDelete', function () {
+      _this5.loadUsers();
+    });
+    AddEvent.$on('AfterUpdate', function () {
+      _this5.loadUsers();
     }); // setInterval( () => this.loadUsers(),10000);
   },
   mounted: function mounted() {
@@ -43131,11 +43117,24 @@ var render = function() {
     _c("div", { staticClass: "row mt-5" }, [
       _c("div", { staticClass: "col-sm-12" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [_vm._v("Users Table")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-success", on: { click: _vm.newModal } },
+                [
+                  _vm._v("\n                  Add New\n                  "),
+                  _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+                ]
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body table-responsive p-0" }, [
             _c("table", { staticClass: "table table-hover" }, [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -43152,7 +43151,18 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(user.created_at))]),
                     _vm._v(" "),
                     _c("td", [
-                      _vm._m(2, true),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              return _vm.editModal(user)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-edit" })]
+                      ),
                       _vm._v(
                         "\n                      ||\n                      "
                       ),
@@ -43197,7 +43207,43 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editmode,
+                        expression: "!editmode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
+                  },
+                  [_vm._v("Add New User")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editmode,
+                        expression: "editmode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
+                  },
+                  [_vm._v("Update User's Info")]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
               _vm._v(" "),
               _c(
                 "form",
@@ -43205,7 +43251,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.createUser($event)
+                      _vm.editmode ? _vm.updateUser() : _vm.createUser()
                     }
                   }
                 },
@@ -43436,273 +43482,50 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(4)
-                ]
-              )
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "update",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "addNewLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(5),
-              _vm._v(" "),
-              _c(
-                "form",
-                {
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.updateUser(_vm.user.id)
-                    }
-                  }
-                },
-                [
-                  _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "modal-footer" }, [
                     _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.name,
-                              expression: "form.name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: { "is-invalid": _vm.form.errors.has("name") },
-                          attrs: {
-                            placeholder: "Full Name",
-                            type: "text",
-                            name: "name"
-                          },
-                          domProps: { value: _vm.form.name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.form, "name", $event.target.value)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "name" }
-                        })
-                      ],
-                      1
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close")]
                     ),
                     _vm._v(" "),
                     _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.email,
-                              expression: "form.email"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: { "is-invalid": _vm.form.errors.has("email") },
-                          attrs: {
-                            placeholder: "Email Address",
-                            type: "email",
-                            name: "email"
-                          },
-                          domProps: { value: _vm.form.email },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.form, "email", $event.target.value)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "email" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.bio,
-                              expression: "form.bio"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: { "is-invalid": _vm.form.errors.has("bio") },
-                          attrs: {
-                            placeholder: "Short bio for user (Optional)",
-                            type: "text",
-                            name: "bio"
-                          },
-                          domProps: { value: _vm.form.bio },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.form, "bio", $event.target.value)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "bio" }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c(
-                          "select",
+                      "button",
+                      {
+                        directives: [
                           {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.type,
-                                expression: "form.type"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: {
-                              "is-invalid": _vm.form.errors.has("type")
-                            },
-                            attrs: { type: "type", name: "type" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.form,
-                                  "type",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          [
-                            _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Type...")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "admin" } }, [
-                              _vm._v("Admin")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "user" } }, [
-                              _vm._v("Standard User")
-                            ]),
-                            _vm._v(" "),
-                            _c("option", { attrs: { value: "author" } }, [
-                              _vm._v("Author")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "name" }
-                        })
-                      ],
-                      1
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editmode,
+                            expression: "!editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Create")]
                     ),
                     _vm._v(" "),
                     _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.password,
-                              expression: "form.password"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: {
-                            "is-invalid": _vm.form.errors.has("password")
-                          },
-                          attrs: {
-                            placeholder: "Password",
-                            type: "password",
-                            name: "password"
-                          },
-                          domProps: { value: _vm.form.password },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "password",
-                                $event.target.value
-                              )
-                            }
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editmode,
+                            expression: "editmode"
                           }
-                        }),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "password" }
-                        })
-                      ],
-                      1
+                        ],
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Update")]
                     )
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(6)
+                  ])
                 ]
               )
             ])
@@ -43713,28 +43536,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Users Table")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success",
-            attrs: { "data-toggle": "modal", "data-target": "#addNew" }
-          },
-          [
-            _vm._v("\n                  Add New\n                  "),
-            _c("i", { staticClass: "fas fa-user-plus fa-fw" })
-          ]
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -43760,100 +43561,17 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "a",
+      "button",
       {
-        attrs: { href: "#", "data-toggle": "modal", "data-target": "#update" }
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
       },
-      [_c("i", { staticClass: "fa fa-edit" })]
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
-        _vm._v("Add New User")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Create")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
-        _vm._v("Update User")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Update")]
-      )
-    ])
   }
 ]
 render._withStripped = true
