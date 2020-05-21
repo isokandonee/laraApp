@@ -46,6 +46,7 @@ const Toast = Swal.mixin({
 window.Toast = Toast;
 let routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue').default},
+    { path: '/developer', component: require('./components/Developer.vue').default},
     { path: '/users', component: require('./components/Users.vue').default},
     { path: '/profile', component: require('./components/Profile.vue').default},
     { path: '/calculator', component: require('./components/Calculator.vue').default}
@@ -54,7 +55,7 @@ let routes = [
 const router = new VueRouter({
     // mode: 'history',
     routes
-})
+});
 
 Vue.filter('upText', function(text){
     return text.charAt(0).toUpperCase() + text.slice(1);
@@ -63,6 +64,21 @@ Vue.filter('upText', function(text){
 Vue.filter('myDate', function(created){
   return moment(created).format('MMMM Do YYYY');
 });
+
+Vue.component(
+  'passport-clients',
+  require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+  'passport-authorized-clients',
+  require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+  'passport-personal-access-tokens',
+  require('./components/passport/PersonalAccessTokens.vue').default
+);
 
 window.AddEvent = new Vue(); 
 /**
